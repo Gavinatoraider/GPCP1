@@ -1,5 +1,9 @@
 #Gavin Pierce, Celsius to Fahrenheit
 
-Celsius = 100
+celsius = input("what is the tempature in celsuis?: ")
 
-print ((Celsius * 9/5)+32)
+celsius = int(celsius)
+
+far = (celsius * 1.8)+32
+
+print("so the tempature in celsius is", celsius, "degrees and is", far, "degrees in fahrenheit")
