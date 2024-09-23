@@ -8,5 +8,28 @@ second= input("what is the second number you want to enter?:" )
 
 second= int(second)
 
-input("what do you want to do?(these are things like +, -, *, %.) ")
+print("your numbers will now ubder go addition subtation etc.")
 
+print(first + second)
+
+print(first - second)
+
+print(first * second)
+
+print(first / second)
+
+print (first** second)
+
+print(first % second)
+
+print(first == second)
+
+print(first <= second)
+
+print(first >= second)
+
+print ("you will now get the absolute value of your numbers")
+
+print(abs(first))
+
+print(abs(second))
