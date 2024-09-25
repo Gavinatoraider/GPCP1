@@ -20,6 +20,18 @@ freindTwo = input("give a name " )
 
 invention = input("name an item " )
 
+verb = input("gib me a verb ")
+
+halp= input("give me an action")
+
+job= input("name a job")
+
+money= input("give me a number ")
+
+retierd= input("give me an life event")
+
 print (person,"an ", age, "year old, lived in ", home,"where they would ",hobbie,". ", person, "liked to eat cold", food, ". they had a pet ", pet, "they would", activityWithPet, ". they had ", age, "freinds, their best 2 freinds were ", nameOfFreind, "and")
 
-print (freindTwo, ". ", person, "lived in", lifeTime, "they had flying car and the new invetion that changed the world this was a", invention, ".")
+print (freindTwo, ". ", person, "lived in", lifeTime, "they had flying car and the new invetion that changed the world this was a", invention, ".this changed the world because ",invention, "could", verb, "and this helped by ", halp, ". ", person,"'s job was", job )
+
+print ("he made $",money ," and they retierd beacuse of " ,retierd, "." )
