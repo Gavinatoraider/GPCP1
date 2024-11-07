@@ -14,4 +14,4 @@ elif authorized in user:
     print("welcome user to the system")
 else:
 
-    print("you either dont have a valid acount or are baned please check with admin")
+    print("you either dont have a valid acount or are banned please check with admin")
