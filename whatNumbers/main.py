@@ -12,9 +12,9 @@ dollar= float(dollar)
 commaPrint= "your number with commas is {:,}"
 
 print(commaPrint.format(comma))
-print("your float number is ",decimal)
+print(f"your decimal number is {decimal:.4}")
 
 percentagePrint= "your percent is {:%}"
 print(percentagePrint.format(percentage))
 
-print("you dollar amount is ", dollar)
+print(f"you dollar amount is {dollar:.2f}")
