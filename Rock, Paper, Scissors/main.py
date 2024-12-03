@@ -7,7 +7,6 @@ likeToPlay=input("hi there I am the rock paper scissors bot would you like to pl
 
 if likeToPlay == "yes":
     print("ok" )
-    playAgain="yes"
     while likeToPlay == "yes":
         playChoise=input("what would you like to chose? rock, paper or sicssors? ")
         if playChoise in playChoiseList:
@@ -20,10 +19,12 @@ if likeToPlay == "yes":
                     playerScore += 1
                     print("the score is", playerScore, "to", aiScore)
                     likeToPlay=input("would you like to play again? ")
+                
                 elif aiTurn == "rock": 
                     print("you tied")
                     print("the score is", playerScore, "to", aiScore)
                     likeToPlay=input("would you like to play again? ")
+                    
                 else:
                     print("the ai won")
                     aiScore += 1
