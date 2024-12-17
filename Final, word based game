@@ -1,0 +1,211 @@
+#gavin pierce
+
+import random
+
+# === Define Classes with Abilities ===
+def defineClasses():
+    """Define the player classes, their stats, passive abilities, and special abilities."""
+    classes = {
+        "human": {
+            "hp": 100,
+            "damage": 5,
+            "armor": 2,
+            "crit_chance": 0.2,
+            "passive": "Battle Hardened: Reduce all incoming damage by 10%",
+            "special": "Last Stand: Double damage when HP is below 20",
+        },
+        "dragon born": {
+            "hp": 120,
+            "damage": 8,
+            "armor": 3,
+            "crit_chance": 0.1,
+            "passive": "Regeneration: Heal 5 HP per turn",
+            "special": "Dragon Fury: Deal an additional 50% damage for one turn",
+        },
+        "dwarf": {
+            "hp": 140,
+            "damage": 5,
+            "armor": 4,
+            "crit_chance": 0.05,
+            "passive": "Stoneborn: Gain +1 armor every turn (max +3)",
+            "special": "Iron Defense: Halve all incoming damage for 3 turns",
+        },
+        "elvish": {
+            "hp": 80,
+            "damage": 6,
+            "armor": 3,
+            "crit_chance": 0.2,
+            "passive": "Fleet Footed: 15% chance to dodge attacks",
+            "special": "Deadly Precision: Guaranteed critical hit on the next attack",
+        },
+        "necromancer": {
+            "hp": 90,
+            "damage": 7,
+            "armor": 1,
+            "crit_chance": 0.25,
+            "passive": "Undying Will: Increase damage by 10% each turn",
+            "special": "Soul Reap: Steal 10 HP from the enemy and heal yourself",
+        },
+    }
+    return classes
+
+# === Prologue ===
+def prologue():
+    """Display the prologue and set the stage for the adventure."""
+    print("""
+In the quiet village of Portown, Taren spent his days fishing for lizard fish, strange creatures
+that had always been abundant in the waters. But now, they were gone. The villagers whispered of
+the Great Lizard Migration, a rare event that left the seas empty for years. For Taren, it wasn’t
+just strange—it was the end of his livelihood.
+
+Rumors spread of strange activity near The Grand Palace, far across the Strand Plateau. 
+Some spoke of the Island of No Such Significance as holding the key to it all. Driven by curiosity 
+and desperation, Taren sets off on a journey to uncover the truth...
+    """)
+
+# === Epilogue ===
+def epilogue():
+    """Conclude the story with hints of a sequel."""
+    print("""
+As the Forgotten King transformed into a majestic lizard, he carried Taren to the Island of No Such Significance.
+The island was unlike anything Taren had imagined. Strange symbols etched into the rocks glowed faintly,
+and the lizards, once thought to be mere creatures, revealed their true intelligence.
+
+The lizard who was once the Forgotten King spoke: 
+'This is not the end, but the beginning. The migration was a warning—a greater threat looms on the horizon. 
+You, Taren, have proven yourself worthy to stand with us. But the real test lies ahead.'
+
+Before Taren could respond, the ground trembled. A portal opened in the sky, emitting a haunting red light.
+The lizards scattered, their glowing eyes filled with fear. The King turned to Taren one last time.
+'Prepare yourself, for the Balance of Worlds has been broken.'
+
+With that, the King disappeared into the shadows, leaving Taren to ponder his next move. The journey was far from over...
+    """)
+
+# === Generate Enemies ===
+def generateEnemy(level, tier):
+    """Generate an enemy based on level and tier."""
+    tiers = {
+        1: {"hp": (50, 70), "damage": (5, 10), "armor": (1, 2), "gold": (10, 20)},
+        2: {"hp": (80, 120), "damage": (10, 15), "armor": (3, 4), "gold": (20, 30)},
+        3: {"hp": (120, 180), "damage": (15, 20), "armor": (5, 6), "gold": (30, 50)},
+    }
+    stats = tiers[tier]
+    return {
+        "name": f"Enemy Level {level} (Tier {tier})",
+        "hp": random.randint(*stats["hp"]),
+        "damage": random.randint(*stats["damage"]),
+        "armor": random.randint(*stats["armor"]),
+        "gold": random.randint(*stats["gold"]),
+    }
+
+# === Rest Stop ===
+def restStop(player):
+    """Restore player's health during rest stops."""
+    print("\nYou've reached a rest stop!")
+    player["hp"] = player["max_hp"]
+    print(f"Your HP has been fully restored to {player['hp']}.")
+
+# === Combat System ===
+def combat(player, enemy):
+    """Battle the player against an enemy."""
+    print(f"\nA wild {enemy['name']} appears!")
+    while player["hp"] > 0 and enemy["hp"] > 0:
+        print(f"\nYour HP: {player['hp']} | Enemy HP: {enemy['hp']}")
+        print("1. Standard Attack\n2. Use Special Ability\n3. Heal")
+        move = input("Choose your move (1-3): ")
+        if move == "1":
+            damage = player["damage"]
+            if random.random() < player["crit_chance"]:
+                damage *= 2
+                print("Critical Hit!")
+            enemy["hp"] -= damage
+            print(f"You dealt {damage} damage!")
+        elif move == "2" and not player.get("special_used", False):
+            print("Using special ability!")
+            player["special_used"] = True
+        elif move == "3":
+            player["hp"] = min(player["hp"] + 15, player["max_hp"])
+            print("You healed for 15 HP!")
+        else:
+            print("Invalid move.")
+        if enemy["hp"] <= 0:
+            print(f"{enemy['name']} defeated!")
+            player["gold"] += enemy["gold"]
+            return True
+        damage = max(1, enemy["damage"] - player["armor"])
+        player["hp"] -= damage
+        print(f"{enemy['name']} attacks! You took {damage} damage.")
+    if player["hp"] <= 0:
+        print("You were defeated.")
+        return False
+
+# === Final Boss Battle with Dialogue ===
+def finalBoss(player):
+    """Battle the final boss with narrative dialogue."""
+    boss = {
+        "name": "The Forgotten King",
+        "hp": 250,
+        "damage": 20,
+        "armor": 5,
+        "gold": 100,
+    }
+    print(f"\n{boss['name']} stands before you.")
+    print(f"{boss['name']}: 'You think you can stop the migration? You know nothing of what I've endured!'")
+    dialogue_points = [
+        "I drove the lizards away to protect them from destruction.",
+        "This palace holds the last remnants of our world’s secrets.",
+        "My curse... it binds me to this palace, but my soul yearns for freedom.",
+        "The Island of No Such Significance... that’s where the truth lies!",
+        "Enough talk! Let us end this!"
+    ]
+    while player["hp"] > 0 and boss["hp"] > 0:
+        print(f"\nYour HP: {player['hp']} | {boss['name']} HP: {boss['hp']}")
+        if boss["hp"] in [200, 150, 100, 50] and dialogue_points:
+            print(f"{boss['name']}: '{dialogue_points.pop(0)}'")
+        combat(player, boss)
+        if boss["hp"] <= 0:
+            print("\nThe Forgotten King lets out a final roar...")
+            print("He transforms into a majestic lizard and takes you to the Island of No Such Significance!")
+            return True
+    print("Game Over.")
+
+# === Main Game Loop ===
+def main():
+    prologue()
+    classes = defineClasses()
+    print("Choose your class:")
+    for cls in classes.keys():
+        print(f"- {cls.capitalize()}")
+    player_class = input("Enter your class: ").lower()
+    if player_class not in classes:
+        print("Invalid class.")
+        return
+    player = classes[player_class]
+    player["class"] = player_class
+    player["gold"] = 0
+    player["special_used"] = False
+    player["max_hp"] = player["hp"]
+
+    # Easy Levels
+    print("\nStarting the easy levels...")
+    for _ in range(2):
+        enemy = generateEnemy(1, 1)
+        if not combat(player, enemy):
+            return
+
+    # Intermediate Levels
+    print("\nMoving to the intermediate levels...")
+    for _ in range(3):
+        enemy = generateEnemy(2, 2)
+        if not combat(player, enemy):
+            return
+        restStop(player)
+
+    # Hard Levels on the Bridge
+    print("\nCrossing the bridge...")
+    for _ in range(3):
+        enemy = generateEnemy(3, 3)
+        if not combat
+
+
